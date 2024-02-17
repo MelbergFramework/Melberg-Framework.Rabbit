@@ -70,6 +70,14 @@ It is separated into two parts:
 
 #Notes
 
+##General Execution
+
+This project requires dotnet 6 sdk to run (install link [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)).
+
+When running locally, I have the rabbit password replaced using the dotnet user-secrets tool. 
+Please follow Microsoft's [guide](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=linux) to set the value of rabbit_pass to your configured rabbit account's password for the csproj file that you are executing.
+
+
 # How to run a RabbitMQ Server
 
 Please see Rabbit's documentation [here](https://hub.docker.com/_/rabbitmq).
