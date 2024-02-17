@@ -1,6 +1,7 @@
 # Melberg-Framework.Rabbit
 RabbitMQ implementation for MelbergFramework
 
+
 # Anatomy of Appsettings.json
 
 The configuration for the MelbergFramework.Rabbit package resides in the Rabbit section of the appsettings.json file.
@@ -66,3 +67,9 @@ It is separated into two parts:
 |AutoDelete| Declares whether the queue should survive losing its consumers.|
 |Durable| Declares whether the queue should survive reboots of the rabbit server.|
 |Exclusive| Declares whether the queue should be exclusive.|
+
+#Notes
+
+# How to run a RabbitMQ Server
+
+Please see Rabbit's documentation [here](https://hub.docker.com/_/rabbitmq).
