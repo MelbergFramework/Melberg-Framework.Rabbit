@@ -24,7 +24,7 @@ It is separated into two parts:
 |Key|Description|
 |-|-|
 |Name| The name of the model that the message will become on consumption.|
-|Connection| Relates the consumer to a previously configured Connection.|
+|Connection| The name of the connection to use to recieve messages.|
 |Queue| The name of the queue that the consumer should bind to.|
 |Scale| The number of consumers that should be created bound to that queue per instance of the application.|
 
@@ -33,13 +33,36 @@ It is separated into two parts:
 |Key|Description|
 |-|-|
 |Name|The name of the model that will become a message.|
-|Connection| Relates the publisher to a previously configured Connection.|
+|Connection| The name of the connection to send messages with.|
 |Exchange| The name of the exchange that the publisher will publish to.|
 
 ## Server Declarations
 
 ### Exchanges
 
+|Key|Description|
+|-|-|
+|Name| The name of the topic.|
+|Type| The type of exchange, currently supports Fanout, Direct, and Fanout.|
+|AutoDelete| Declares whether the exchage deletes itself after losing all bindings.|
+|Durable| Declares whether the exchange survives reboots of the rabbit server.|
+|Connection| The name of the connection to create exchanges with.|
+
 ### Bindings
 
+|Key|Description|
+|-|-|
+|Queue| The name of the queue that will be bound.|
+|Connection| The name of the connection to bind with.|
+|Exchange| The name of the exchange that will be bound.|
+|SubscriptionKey| The binding that informs the Rabbit server which messages to send to the queue.|
+
 ### Queues
+
+|Key|Description|
+|-|-|
+|Name| The name of the queue to create.|
+|Connection| The name of the connection to use to create the queue.|
+|AutoDelete| Declares whether the queue should survive losing its consumers.|
+|Durable| Declares whether the queue should survive reboots of the rabbit server.|
+|Exclusive| Declares whether the queue should be exclusive.|
