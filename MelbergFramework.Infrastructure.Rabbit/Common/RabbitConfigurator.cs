@@ -11,18 +11,29 @@ public static class RabbitConfigurator
         var receiverConfigs = configurationOptions.ClientDeclarations.AsyncRecievers.Where(_ => _.Name == selector );
         
         if(!receiverConfigs.Any())
-            throw new ConsumerConfigurationNotFoundException($"Consumer configuration for {selector} not found");
+            throw new ConsumerConfigurationNotFoundException($"Consumer configuration for {selector} not found.");
+        var j = receiverConfigs.First();
 
         return receiverConfigs.First();
+    }
+    
+    public static PublisherOptions GetPublisherOptions(string selector, RabbitConfigurationOptions configurationOptions)
+    {
+        var publisherConfigs = configurationOptions.ClientDeclarations.Publishers.Where(_ => _.Name == selector);
+        
+        if(!publisherConfigs.Any())
+            throw new PublisherConfigurationNotFoundException($"Publisher configuration for {selector} not found.");
+        
+        return publisherConfigs.First();
     }
     
     public static void ConfigureRabbit(this IModel channel, string selector, RabbitConfigurationOptions configurationOptions)
     {
         var receiverConfigs = GetConsumerOptions(selector, configurationOptions);
         
-        ConfigureExchanges(channel,receiverConfigs.Connection,configurationOptions.ServerDelcarations.Exchanges);
-        ConfigureQueues(channel, receiverConfigs.Connection,configurationOptions.ServerDelcarations.Queues);
-        ConfigureBindings(channel, receiverConfigs.Connection, configurationOptions.ServerDelcarations.Bindings);
+        ConfigureExchanges(channel,receiverConfigs.Connection,configurationOptions.ServerDeclarations.Exchanges);
+        ConfigureQueues(channel, receiverConfigs.Connection,configurationOptions.ServerDeclarations.Queues);
+        ConfigureBindings(channel, receiverConfigs.Connection, configurationOptions.ServerDeclarations.Bindings);
     }
     static void ConfigureExchanges(this IModel Channel, string Connection, IEnumerable<ExchangeOptions> ExchangeInfo)
     {
@@ -30,7 +41,7 @@ public static class RabbitConfigurator
 
         foreach(var exchange in relevantExchanges)
         {
-            Channel.ExchangeDeclare(exchange.Name,exchange.Type,exchange.Durable,exchange.AutoDelete);
+            Channel.ExchangeDeclare(exchange.Name,ToExchangeType(exchange.Type),exchange.Durable,exchange.AutoDelete);
         }
     }
 
@@ -52,5 +63,15 @@ public static class RabbitConfigurator
         {
             Channel.QueueBind(binding.Queue,binding.Exchange,binding.SubscriptionKey);
         }
+    }
+    static string ToExchangeType(this string configType)
+    {
+        switch(configType.ToLower())
+        {
+            case "direct": return ExchangeType.Direct;
+            case "fanout": return ExchangeType.Fanout;
+            case "topic":  return ExchangeType.Topic;
+        }
+        throw new Exception("An invalid exchange type has been given");
     }
 }

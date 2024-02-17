@@ -1,3 +1,5 @@
+using MelbergFramework.Infrastructure.Rabbit.Publishers;
+
 namespace MelbergFramework.Infrastructure.Rabbit.Metrics;
 
 public interface IMetricPublisher

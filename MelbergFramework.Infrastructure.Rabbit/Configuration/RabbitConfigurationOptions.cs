@@ -8,5 +8,5 @@ public class RabbitConfigurationOptions
     
     [Required]
     public ClientDeclarationsOptions ClientDeclarations {get; set;}
-    public ServerDelcarationsOptions ServerDelcarations {get; set;}
+    public ServerDelcarationsOptions ServerDeclarations {get; set;}
 }

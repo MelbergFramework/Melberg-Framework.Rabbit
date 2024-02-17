@@ -5,7 +5,10 @@ public class Message
 
     public byte[] Body { get; set; } = new byte[]{};
     public string RoutingKey { get; set; } = string.Empty;
-     Should I change how I use Message?
 
-     Easy answer is keep the standard message and message
+}
+public static class Headers
+{
+    public const string CorrelationId = "coid";
+    public const string Timestamp = "timestamp";
 }

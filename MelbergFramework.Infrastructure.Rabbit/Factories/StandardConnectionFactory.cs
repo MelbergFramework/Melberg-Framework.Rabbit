@@ -1,8 +1,10 @@
 using System.Collections.Concurrent;
+using System.Security.Cryptography;
 using MelbergFramework.Infrastructure.Rabbit.Common.Exceptions;
 using MelbergFramework.Infrastructure.Rabbit.Configuration;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Exceptions;
 
 namespace MelbergFramework.Infrastructure.Rabbit.Factories;
 
@@ -85,7 +87,14 @@ public class StandardConnectionFactory : IStandardConnectionFactory
             HostName = connectionConfig.ServerName,
             ClientProvidedName = connectionConfig.ClientName,
         };
-        return factory.CreateConnection();
+        try
+        {
+            return factory.CreateConnection();
+        }
+        catch (BrokerUnreachableException)
+        {
+            throw new Exception($"Could not make for {connectionConfig.ClientName} to {connectionConfig.ServerName}");
+        }
     }
 
     public IConnection GetPublisherChannel(string name)

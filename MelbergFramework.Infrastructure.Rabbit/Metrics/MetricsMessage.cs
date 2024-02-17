@@ -1,3 +1,5 @@
+using MelbergFramework.Infrastructure.Rabbit.Messages;
+
 namespace MelbergFramework.Infrastructure.Rabbit.Metrics;
 public class MetricMessage : StandardMessage
 {

@@ -4,9 +4,12 @@ using MelbergFramework.Infrastructure.Rabbit.Consumers;
 using MelbergFramework.Infrastructure.Rabbit.Extensions;
 using MelbergFramework.Infrastructure.Rabbit.Factories;
 using MelbergFramework.Infrastructure.Rabbit.Messages;
+using MelbergFramework.Infrastructure.Rabbit.Metrics;
+using MelbergFramework.Core.Application;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 namespace MelbergFramework.Infrastructure.Rabbit.Services;
@@ -20,6 +23,23 @@ public class RabbitMicroService<TConsumer> : BackgroundService
     private readonly IStandardConnectionFactory _connectionFactory;
     private readonly IMetricPublisher _metricPublisher;
     private readonly ILogger<RabbitMicroService<TConsumer>> _logger;
+    public RabbitMicroService(
+        string selector,
+        IServiceProvider serviceProvider,
+        IOptions<RabbitConfigurationOptions> configurationProvider,
+        IStandardConnectionFactory connectionFactory,
+        IMetricPublisher metricPublisher,
+        IOptions<ApplicationConfiguration> applicationOptions,
+        ILogger<RabbitMicroService<TConsumer>> logger)
+    {
+        _selector = selector;
+        _metricName = string.Join("_", applicationOptions.Value.Name, _selector, "consumer");
+        _serviceProvider = serviceProvider;
+        _connectionFactory = connectionFactory;
+        _options = configurationProvider.Value;
+        _metricPublisher = metricPublisher;
+        _logger = logger;
+    }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var consumerConfig = RabbitConfigurator.GetConsumerOptions(_selector, _options);
@@ -67,7 +87,6 @@ public class RabbitMicroService<TConsumer> : BackgroundService
                     .ServiceProvider
                     .GetService<TConsumer>()
                     .ConsumeMessageAsync(message, cancellationToken);
-
             }
             stopwatch.Stop();
             if (_metricPublisher != null)
