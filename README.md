@@ -68,9 +68,9 @@ It is separated into two parts:
 |Durable| Declares whether the queue should survive reboots of the rabbit server.|
 |Exclusive| Declares whether the queue should be exclusive.|
 
-#Notes
+# Notes
 
-##General Execution
+## General Execution
 
 This project requires dotnet 6 sdk to run (install link [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)).
 
