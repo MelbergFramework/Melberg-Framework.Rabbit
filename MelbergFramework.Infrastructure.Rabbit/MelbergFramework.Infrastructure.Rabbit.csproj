@@ -8,6 +8,7 @@
 		<Version>1.0.2</Version>
 		<Authors>Joseph Melberg</Authors>
 		<Company>Inter</Company>
+		<PackageLicenseExpression>GPL-3.0</PackageLicenseExpression>
 	</PropertyGroup>
   
   <ItemGroup>
