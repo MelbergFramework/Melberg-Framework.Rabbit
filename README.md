@@ -1,4 +1,4 @@
-# MelbergFramework.Rabbit
+# MelbergFramework.Infrastructure.Rabbit
 RabbitMQ implementation for MelbergFramework
 
 
