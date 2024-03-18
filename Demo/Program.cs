@@ -9,16 +9,26 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
-        
-        RabbitModule.RegisterMicroConsumer<DemoProcessor, TickMessage>(builder.Services, true);
-        builder.Services.RegisterRequired();
-        var app = builder.Build();
-
-        if(app.Environment.IsDevelopment())
+        try
         {
-            app.Configuration["Rabbit:ClientDeclarations:Connections:0:Password"] = app.Configuration["rabbit_pass"];
-        } 
-        app.Run();
+            
+        var h =  MelbergHost
+            .CreateHost()
+            .DevelopmentPasswordReplacement(
+                    "Rabbit:ClientDeclarations:Connections:0:Password",
+                    "rabbit_pass")
+            .AddServices(_ => 
+            {
+                RabbitModule.RegisterMicroConsumer<DemoProcessor, TickMessage>(_, false);
+            })
+            .AddControllers()
+            .Build();
+            await h.RunAsync();
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
     }
 }

@@ -1,4 +1,4 @@
-using MelbergFramework.Core.Health;
+using MelbergFramework.Core.HealthCheck;
 using MelbergFramework.Infrastructure.Rabbit.Factories;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
