@@ -1,5 +1,5 @@
-using MelbergFramework.Core.Application;
-using MelbergFramework.Core.Health;
+using MelbergFramework.Application;
+using MelbergFramework.Core.HealthCheck;
 using MelbergFramework.Infrastructure.Rabbit.Configuration;
 using MelbergFramework.Infrastructure.Rabbit.Consumers;
 using MelbergFramework.Infrastructure.Rabbit.Factories;
@@ -26,6 +26,7 @@ public static class RabbitModule
         catalog.AddTransient<TConsumer,TConsumer>();
         catalog.AddSingleton<IHealthCheck>((s) => new RabbitConsumerHealthCheck(s,selector));
         catalog.AddTransient<IJsonToObjectTranslator<TModel>,JsonToObjectTranslator<TModel>>();
+        RegisterConfiguration(catalog);
         if(sendMetrics)
         {
             RegisterMetrics(catalog);
@@ -54,6 +55,7 @@ public static class RabbitModule
         catalog.AddSingleton<IStandardConnectionFactory, StandardConnectionFactory>();
         catalog.AddSingleton<IStandardPublisher<TMessage>,StandardPublisher<TMessage>>();
         catalog.AddSingleton<IHealthCheck,RabbitPublisherHealthCheck<TMessage>>();
+        Console.WriteLine("HELLLOJ");
         RegisterConfiguration(catalog);
     }
     

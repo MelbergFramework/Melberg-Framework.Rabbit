@@ -1,11 +1,11 @@
 using System.Diagnostics;
+using MelbergFramework.Application;
 using MelbergFramework.Infrastructure.Rabbit.Configuration;
 using MelbergFramework.Infrastructure.Rabbit.Consumers;
 using MelbergFramework.Infrastructure.Rabbit.Extensions;
 using MelbergFramework.Infrastructure.Rabbit.Factories;
 using MelbergFramework.Infrastructure.Rabbit.Messages;
 using MelbergFramework.Infrastructure.Rabbit.Metrics;
-using MelbergFramework.Core.Application;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
