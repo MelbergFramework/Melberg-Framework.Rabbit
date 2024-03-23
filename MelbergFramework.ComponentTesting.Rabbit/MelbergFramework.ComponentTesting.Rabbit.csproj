@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\MelbergFramework.Infrastructure.Rabbit\MelbergFramework.Infrastructure.Rabbit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MelbergFramework.Core.ComponentTesting" Version="8.0.4" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<TargetFramework>net8.0</TargetFramework>
+    <PackageId>MelbergFramework.ComponentTesting.Rabbit</PackageId>
+    <Version>1.0.2</Version>
+    <Authors>Joseph Melberg</Authors>
+    <Company>Inter</Company>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+   </PropertyGroup>
+  <PropertyGroup>
+
+</Project>

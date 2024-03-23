@@ -35,11 +35,11 @@ public static class RabbitModule
             (s) => new RabbitMicroService<TConsumer>(
                 selector,
                 s,
-                s.GetService<IOptions<RabbitConfigurationOptions>>(),
-                s.GetService<IStandardConnectionFactory>(),
-                sendMetrics ? s.GetService<IMetricPublisher>() : null,
-                s.GetService<IOptions<ApplicationConfiguration>>(),
-                s.GetService<ILogger<RabbitMicroService<TConsumer>>>())
+                s.GetRequiredService<IOptions<RabbitConfigurationOptions>>(),
+                s.GetRequiredService<IStandardConnectionFactory>(),
+                sendMetrics ? s.GetRequiredService<IMetricPublisher>() : null,
+                s.GetRequiredService<IOptions<ApplicationConfiguration>>(),
+                s.GetRequiredService<ILogger<RabbitMicroService<TConsumer>>>())
         );
     }
 
@@ -55,7 +55,6 @@ public static class RabbitModule
         catalog.AddSingleton<IStandardConnectionFactory, StandardConnectionFactory>();
         catalog.AddSingleton<IStandardPublisher<TMessage>,StandardPublisher<TMessage>>();
         catalog.AddSingleton<IHealthCheck,RabbitPublisherHealthCheck<TMessage>>();
-        Console.WriteLine("HELLLOJ");
         RegisterConfiguration(catalog);
     }
     
