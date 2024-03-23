@@ -9,9 +9,15 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<TargetFramework>net8.0</TargetFramework>
+    <PackageId>MelbergFramework.ComponentTesting.Rabbit</PackageId>
+    <Version>1.0.2</Version>
+    <Authors>Joseph Melberg</Authors>
+    <Company>Inter</Company>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+   </PropertyGroup>
+  <PropertyGroup>
 
 </Project>
