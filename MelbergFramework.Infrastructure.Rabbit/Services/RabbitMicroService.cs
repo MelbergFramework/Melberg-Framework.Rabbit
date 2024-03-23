@@ -47,7 +47,6 @@ public class RabbitMicroService<TConsumer> : BackgroundService
 
         RabbitConfigurator.ConfigureRabbit(channel, _selector, _options);
 
-
         var consumer = new AsyncEventingBasicConsumer(channel);
                 
         consumer.Received += async (ch, ea) =>

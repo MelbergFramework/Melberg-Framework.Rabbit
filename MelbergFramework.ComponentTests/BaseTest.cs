@@ -1,12 +1,11 @@
 using MelbergFramework.Application;
-using MelbergFramework.Core.Time;
-using MelbergFramework.Core.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MelbergFramework.Infrastructure.Rabbit.Services;
 using MelbergFramework.Infrastructure.Rabbit.Translator;
 using MelbergFramework.ComponentTesting.Rabbit;
 using MelbergFramework.Infrastructure.Rabbit.Publishers;
+using MelbergFramework.Infrastructure.Rabbit;
+using MelbergFramework.Infrastructure.Rabbit.Messages;
 
 namespace MelbergFramework.ComponentTests;
 
@@ -18,15 +17,17 @@ public partial class BaseTest : BaseTestFrame
             .CreateHost<TestRegistrator>()
             .AddServices( (_) => 
                 {
-
+                    _.OverridePublisher<OutboundMessage>();
+                    _.OverrideTranslator<InboundMessage>();
+                    _.PrepareConsumer<TestProcessor>();
                 })
             .Build();
     }
 
     public async Task Consume_message()
     {
-        var consumer = GetClass<RabbitMicroService<TestProcessor>>();
-        await consumer.ConsumeMessageAsync(null,CancellationToken.None);
+        var consumer = GetService();
+        await consumer.ConsumeMessageAsync(new Message(),CancellationToken.None);
     }
 
     public async Task Setup_message(int value)
@@ -51,23 +52,9 @@ public class TestRegistrator : Registrator
 {
     public override void RegisterServices(IServiceCollection services)
     {
-        services.AddTransient<ISmallTest,SmallTest>();
-        ClockModule.RegisterClock(services);
+        RabbitModule.RegisterMicroConsumer<TestProcessor,InboundMessage>
+            (services,true);
+        RabbitModule.RegisterPublisher<OutboundMessage>(services);
     }
 }
 
-public interface ISmallTest
-{
-    DateTime GetTime();
-}
-public class SmallTest : ISmallTest
-{
-    private IClock _clock;
-    public SmallTest(IClock clock)
-    {
-        _clock = clock;
-    }
-
-    public DateTime GetTime() =>
-        _clock.GetUtcNow();
-}
