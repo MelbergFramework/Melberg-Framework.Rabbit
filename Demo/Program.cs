@@ -14,7 +14,6 @@ public class Program
             .DevelopmentPasswordReplacement(
                     "Rabbit:ClientDeclarations:Connections:0:Password",
                     "rabbit_pass")
-            .AddControllers()
             .Build();
             await h.RunAsync();
         }
