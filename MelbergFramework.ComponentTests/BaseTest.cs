@@ -6,11 +6,13 @@ using MelbergFramework.ComponentTesting.Rabbit;
 using MelbergFramework.Infrastructure.Rabbit.Publishers;
 using MelbergFramework.Infrastructure.Rabbit;
 using MelbergFramework.Infrastructure.Rabbit.Messages;
+using MelbergFramework.Infrastructure.Rabbit.Extensions;
 
 namespace MelbergFramework.ComponentTests;
 
 public partial class BaseTest : BaseTestFrame
 {
+    private Guid _coID = Guid.NewGuid();
     public BaseTest()
     {
         App = MelbergHost
@@ -27,7 +29,9 @@ public partial class BaseTest : BaseTestFrame
     public async Task Consume_message()
     {
         var consumer = GetService();
-        await consumer.ConsumeMessageAsync(new Message(),CancellationToken.None);
+        var message = new Message();
+        message.SetCoID(_coID);
+        await consumer.ConsumeMessageAsync(message,CancellationToken.None);
     }
 
     public async Task Setup_message(int value)
@@ -44,6 +48,7 @@ public partial class BaseTest : BaseTestFrame
         var pub = (MockPublisher<OutboundMessage>)GetClass<IStandardPublisher<OutboundMessage>>();
         Assert.IsTrue(pub.SentMessages.Count == 1);
         Assert.IsTrue(pub.SentMessages.First().Value == value);
+        Assert.IsTrue(pub.SentMessages.First().Test == _coID);
     }
 
 }

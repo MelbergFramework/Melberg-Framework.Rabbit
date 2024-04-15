@@ -42,8 +42,13 @@ public abstract class BasePublisher<TMessage>
         
         properties.Headers = message.Headers;
         
-        properties.Headers[MessageExtensions.Headers.Timestamp] = DateTime.UtcNow.ToString();
-        properties.Headers[MessageExtensions.Headers.CorrelationId]= Trace.CorrelationManager.ActivityId.ToString();
+        properties.Headers.TryAdd(MessageExtensions.Headers.Timestamp,
+                DateTime.UtcNow.ToString());
+
+        properties.Headers[MessageExtensions.Headers.CorrelationId] = 
+            _config.MaintainCorrelation ?
+                Trace.CorrelationManager.ActivityId.ToString() : 
+                Guid.NewGuid().ToString();
 
         Channel.BasicPublish(
             _config.Exchange,

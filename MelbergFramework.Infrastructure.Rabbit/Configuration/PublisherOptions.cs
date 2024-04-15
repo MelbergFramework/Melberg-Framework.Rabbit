@@ -10,4 +10,5 @@ public class PublisherOptions
     public string Connection {get; set;}
     [Required]
     public string Exchange {get; set;}
+    public bool MaintainCorrelation {get; set;} = false;
 }

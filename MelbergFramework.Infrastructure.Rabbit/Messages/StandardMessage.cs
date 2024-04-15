@@ -1,4 +1,5 @@
 namespace MelbergFramework.Infrastructure.Rabbit.Messages;
+
 public abstract class StandardMessage : IStandardMessage
 {
     protected StandardMessage() { }
