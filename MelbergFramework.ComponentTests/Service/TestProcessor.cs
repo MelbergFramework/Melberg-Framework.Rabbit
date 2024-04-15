@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using MelbergFramework.Infrastructure.Rabbit.Consumers;
 using MelbergFramework.Infrastructure.Rabbit.Messages;
 using MelbergFramework.Infrastructure.Rabbit.Publishers;
@@ -26,7 +27,8 @@ public class TestProcessor : IStandardConsumer
     {
 
         var translatedMessage = _translator.Translate(message);
-        _publisher.Send(new OutboundMessage(){Value = translatedMessage.Value});
+        var coid = Trace.CorrelationManager.ActivityId;
+        _publisher.Send(new OutboundMessage(){Value = translatedMessage.Value, Test = coid});
         
         await Task.Delay(1);
     }
@@ -42,5 +44,6 @@ public class InboundMessage : StandardMessage
 public class OutboundMessage : StandardMessage
 {
     public int Value {get; set;}
+    public Guid Test {get; set;}
     public override string GetRoutingKey() => "a";
 }

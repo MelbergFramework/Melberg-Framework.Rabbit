@@ -58,7 +58,6 @@ public class RabbitMicroService<TConsumer> : BackgroundService
                 Body = ea.Body.ToArray()
             };
 
-            Trace.CorrelationManager.ActivityId = message.GetCoID();
 
             await ConsumeMessageAsync(message, stoppingToken);
 
@@ -74,6 +73,7 @@ public class RabbitMicroService<TConsumer> : BackgroundService
     {
         var name = _selector + "_consumer";
         Trace.CorrelationManager.StartLogicalOperation(name);
+        Trace.CorrelationManager.ActivityId = message.GetCoID();
 
         var now = DateTime.UtcNow;
         try

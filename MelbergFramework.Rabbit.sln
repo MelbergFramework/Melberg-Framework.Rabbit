@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MelbergFramework.ComponentT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MelbergFramework.ComponentTests", "MelbergFramework.ComponentTests\MelbergFramework.ComponentTests.csproj", "{B9312085-3F3A-407E-8329-4D66F9226B3E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{21973F7C-DEA4-4532-B99C-1C2CF21740C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Tests\UnitTests\UnitTests.csproj", "{BDB0ED88-D5C0-463B-A1DE-CEBFD342D555}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,12 @@ Global
 		{B9312085-3F3A-407E-8329-4D66F9226B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9312085-3F3A-407E-8329-4D66F9226B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9312085-3F3A-407E-8329-4D66F9226B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDB0ED88-D5C0-463B-A1DE-CEBFD342D555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB0ED88-D5C0-463B-A1DE-CEBFD342D555}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB0ED88-D5C0-463B-A1DE-CEBFD342D555}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB0ED88-D5C0-463B-A1DE-CEBFD342D555}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BDB0ED88-D5C0-463B-A1DE-CEBFD342D555} = {21973F7C-DEA4-4532-B99C-1C2CF21740C1}
 	EndGlobalSection
 EndGlobal
