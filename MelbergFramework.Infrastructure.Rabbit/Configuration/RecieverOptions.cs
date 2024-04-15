@@ -12,5 +12,4 @@ public class RecieverOptions
     public string Queue {get; set;}
     [Range(1,int.MaxValue)]
     public int Scale {get; set;} = 1;
-    public bool Metric {get; set;} = false;
 }
