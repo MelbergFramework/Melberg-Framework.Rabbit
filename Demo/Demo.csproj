@@ -10,7 +10,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\MelbergFramework.Infrastructure.Rabbit\MelbergFramework.Infrastructure.Rabbit.csproj" />
-    <PackageReference Include="MelbergFramework.Application" Version="8.0.6" />   
+    <PackageReference Include="MelbergFramework.Application" Version="8.0.7" />   
   </ItemGroup>
 
 </Project>
